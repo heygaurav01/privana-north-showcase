@@ -2,11 +2,14 @@ import { MapPin, Navigation, School, Hospital, ShoppingBag, Plane } from "lucide
 import { Card } from "@/components/ui/card";
 
 const locationFeatures = [
-  { icon: Navigation, title: "5 Minutes", description: "NH-8 Highway" },
-  { icon: School, title: "10 Minutes", description: "Top Schools" },
-  { icon: Hospital, title: "8 Minutes", description: "Multi-Specialty Hospitals" },
-  { icon: ShoppingBag, title: "15 Minutes", description: "Shopping Malls" },
-  { icon: Plane, title: "30 Minutes", description: "IGI Airport" },
+  { icon: Navigation, title: "2.5 Km", description: "SPR Road" },
+  { icon: Navigation, title: "2.8 Km", description: "Hyatt Regency" },
+  { icon: ShoppingBag, title: "2.9 Km", description: "Corner Walk" },
+  { icon: School, title: "3.6 Km", description: "Suraj School" },
+  { icon: Navigation, title: "3.7 Km", description: "Golf Retreat" },
+  { icon: Navigation, title: "4.3 Km", description: "DLF Corporate Greens" },
+  { icon: Navigation, title: "5.6 Km", description: "Karma Lake" },
+  { icon: Hospital, title: "10.7 Km", description: "Aarvy Hospital" },
 ];
 
 export const Location = () => {
@@ -53,20 +56,13 @@ export const Location = () => {
             ))}
           </div>
 
-          {/* Map Placeholder */}
+          {/* Location Map */}
           <Card className="overflow-hidden border-none shadow-premium">
-            <div className="aspect-square w-full bg-muted">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.2605908919394!2d77.06721931508076!3d28.45319098248847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18f6b123456f%3A0x1234567890abcdef!2sSector%2077%2C%20Gurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="DLF Privana North Location"
-              />
-            </div>
+            <img 
+              src={new URL('../assets/location-map.png', import.meta.url).href}
+              alt="DLF Privana North Location Map"
+              className="w-full h-full object-cover"
+            />
           </Card>
         </div>
       </div>
