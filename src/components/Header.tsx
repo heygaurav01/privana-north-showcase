@@ -32,13 +32,16 @@ export const Header = () => {
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <h1
-              className={`text-2xl font-bold transition-colors ${
-                isScrolled ? "text-primary" : "text-primary-foreground"
-              }`}
-            >
-              DLF <span className="text-accent">Privana North</span>
-            </h1>
+            <div className={`transition-colors ${
+              isScrolled ? "text-primary" : "text-primary-foreground"
+            }`}>
+              <div className="text-2xl font-bold leading-tight">
+                PRIVANA
+              </div>
+              <div className="text-sm font-light tracking-widest -mt-1">
+                NORTH
+              </div>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
