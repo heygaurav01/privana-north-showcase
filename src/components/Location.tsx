@@ -22,7 +22,7 @@ export const Location = () => {
           </h2>
           <div className="mx-auto h-1 w-24 bg-accent" />
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            Strategically located in Sector 77, Gurgaon with excellent connectivity 
+            Strategically located in Sector 77, Gurgaon with excellent connectivity
             to major landmarks and business hubs
           </p>
         </div>
@@ -57,11 +57,15 @@ export const Location = () => {
           </div>
 
           {/* Location Map */}
-          <Card className="overflow-hidden border-none shadow-premium">
-            <img 
-              src={new URL('../assets/location-map.png', import.meta.url).href}
-              alt="DLF Privana North Location Map"
-              className="w-full h-full object-cover"
+          <Card className="overflow-hidden border-none shadow-premium h-[450px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.004999060932!2d76.98104047628951!3d28.38891697579868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3dd83ea4a749%3A0x75bef0037f1644ec!2sPrivana%20North%20Sector%2076%20Gurgaon!5e0!3m2!1sen!2sin!4v1764323038279!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
             />
           </Card>
         </div>

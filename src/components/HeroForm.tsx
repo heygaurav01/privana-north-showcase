@@ -1,0 +1,156 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+
+import { useNavigate } from "react-router-dom";
+
+export const HeroForm = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    consent: false,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (formData.mobile.length !== 10) {
+      toast({
+        title: "Invalid Mobile Number",
+        description: "Please enter a valid 10-digit mobile number.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formData.consent) {
+      toast({
+        title: "Consent Required",
+        description: "Please agree to the privacy policy to proceed.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    setTimeout(() => {
+      toast({
+        title: "Registration Successful!",
+        description: "We will contact you shortly with the best offers.",
+      });
+      setFormData({ name: "", mobile: "", email: "", consent: false });
+      setIsSubmitting(false);
+      navigate("/thank-you.html");
+    }, 1000);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "mobile") {
+      const numericValue = value.replace(/\D/g, "").slice(0, 10);
+      setFormData({ ...formData, [name]: numericValue });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  return (
+    <Card className="w-full max-w-md bg-white p-6 shadow-2xl rounded-xl">
+      <div className="mb-6">
+        <h3 className="text-2xl font-serif font-bold text-gray-900">
+          Pre-Register for Best Offers
+        </h3>
+        <p className="text-sm text-gray-600 mt-1">
+          Get exclusive pricing and floor plans
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-1.5">
+          <Label htmlFor="name" className="text-sm font-semibold text-gray-800">
+            Name *
+          </Label>
+          <Input
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="h-10 border-gray-200 focus:border-purple-600 focus:ring-purple-600"
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <Label htmlFor="mobile" className="text-sm font-semibold text-gray-800">
+            Mobile No *
+          </Label>
+          <Input
+            id="mobile"
+            name="mobile"
+            type="tel"
+            placeholder="Enter your mobile number"
+            value={formData.mobile}
+            onChange={handleChange}
+            required
+            className="h-10 border-gray-200 focus:border-purple-600 focus:ring-purple-600"
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <Label htmlFor="email" className="text-sm font-semibold text-gray-800">
+            Email (Optional)
+          </Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
+            className="h-10 border-gray-200 focus:border-purple-600 focus:ring-purple-600"
+          />
+        </div>
+
+        <div className="flex items-start space-x-2 pt-2">
+          <Checkbox
+            id="consent"
+            checked={formData.consent}
+            onCheckedChange={(checked) =>
+              setFormData(prev => ({ ...prev, consent: checked as boolean }))
+            }
+            className="mt-1 border-gray-300 data-[state=checked]:bg-purple-700 data-[state=checked]:border-purple-700"
+          />
+          <Label
+            htmlFor="consent"
+            className="text-xs text-gray-500 leading-tight cursor-pointer"
+          >
+            I consent to the use of my provided data in accordance with the privacy policy.
+          </Label>
+        </div>
+
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-[#1e3a8a] hover:bg-[#172554] text-white font-semibold h-11 text-base mt-2"
+        >
+          {isSubmitting ? "Submitting..." : "Pre-Register Now"}
+        </Button>
+
+        <p className="text-center text-xs text-gray-400 mt-2">
+          Free Cab Facility For Site Visit
+        </p>
+      </form>
+    </Card>
+  );
+};

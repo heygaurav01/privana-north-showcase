@@ -20,15 +20,34 @@ export const EnquiryForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Enquiry Submitted Successfully!",
-        description: "Our team will contact you within 24 hours.",
+    try {
+      const response = await fetch("https://api.elaris.td/api/request", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-      setFormData({ name: "", phone: "", email: "", message: "" });
+
+      if (response.ok) {
+        toast({
+          title: "Enquiry Submitted Successfully!",
+          description: "Our team will contact you within 24 hours.",
+        });
+        setFormData({ name: "", phone: "", email: "", message: "" });
+      } else {
+        throw new Error("Failed to submit enquiry");
+      }
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "Please try again later or contact us directly.",
+        variant: "destructive",
+      });
+      console.error("Error submitting form:", error);
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleChange = (
@@ -141,17 +160,17 @@ export const EnquiryForm = () => {
             <Card className="border-none bg-card p-6 text-center shadow-md">
               <Phone className="mx-auto mb-3 h-8 w-8 text-accent" />
               <h3 className="mb-2 font-semibold text-foreground">Call Us</h3>
-              <p className="text-sm text-muted-foreground">+91 98765 43210</p>
+              <p className="text-sm text-muted-foreground">+91 8200 201 202</p>
             </Card>
             <Card className="border-none bg-card p-6 text-center shadow-md">
               <Mail className="mx-auto mb-3 h-8 w-8 text-accent" />
               <h3 className="mb-2 font-semibold text-foreground">Email Us</h3>
-              <p className="text-sm text-muted-foreground">info@dlfprivana.com</p>
+              <p className="text-sm text-muted-foreground">contact@elaris.consulting</p>
             </Card>
             <Card className="border-none bg-card p-6 text-center shadow-md">
               <MessageSquare className="mx-auto mb-3 h-8 w-8 text-accent" />
               <h3 className="mb-2 font-semibold text-foreground">WhatsApp</h3>
-              <p className="text-sm text-muted-foreground">+91 98765 43210</p>
+              <p className="text-sm text-muted-foreground">+91 8200 201 202</p>
             </Card>
           </div>
         </div>

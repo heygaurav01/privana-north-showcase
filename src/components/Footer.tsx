@@ -9,7 +9,7 @@ export const Footer = () => {
           <div>
             <h3 className="mb-4 text-2xl font-bold text-accent">DLF Privana North</h3>
             <p className="mb-4 text-sm text-primary-foreground/80">
-              Experience luxury living in the heart of Gurgaon with world-class amenities 
+              Experience luxury living in the heart of Gurgaon with world-class amenities
               and exceptional connectivity.
             </p>
             <div className="flex gap-4">
@@ -99,11 +99,11 @@ export const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-5 w-5 flex-shrink-0 text-accent" />
-                <span className="text-primary-foreground/80">+91 98765 43210</span>
+                <span className="text-primary-foreground/80">+91 8200 201 202</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-5 w-5 flex-shrink-0 text-accent" />
-                <span className="text-primary-foreground/80">info@dlfprivana.com</span>
+                <span className="text-primary-foreground/80">contact@elaris.consulting</span>
               </li>
             </ul>
           </div>
