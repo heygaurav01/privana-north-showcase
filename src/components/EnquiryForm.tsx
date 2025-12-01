@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { submitFormData } from "@/lib/api";
 import { Mail, Phone, User, MessageSquare } from "lucide-react";
 
 export const EnquiryForm = () => {
@@ -12,7 +12,7 @@ export const EnquiryForm = () => {
     name: "",
     phone: "",
     email: "",
-    message: "",
+    countryCode: "+91",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -21,22 +21,30 @@ export const EnquiryForm = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://api.elaris.td/api/request", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const { success, message } = await submitFormData({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        countryCode: formData.countryCode,
       });
 
-      if (response.ok) {
+      if (success) {
         toast({
           title: "Enquiry Submitted Successfully!",
           description: "Our team will contact you within 24 hours.",
         });
-        setFormData({ name: "", phone: "", email: "", message: "" });
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          countryCode: "+91",
+        });
       } else {
-        throw new Error("Failed to submit enquiry");
+        toast({
+          title: "Submission Failed",
+          description: message,
+          variant: "destructive",
+        });
       }
     } catch (error) {
       toast({
@@ -50,9 +58,7 @@ export const EnquiryForm = () => {
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -66,7 +72,8 @@ export const EnquiryForm = () => {
             </h2>
             <div className="mx-auto h-1 w-24 bg-accent" />
             <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-              Schedule a site visit or request more information about DLF Privana North
+              Schedule a site visit or request more information about DLF
+              Privana North
             </p>
           </div>
 
@@ -74,7 +81,10 @@ export const EnquiryForm = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="name"
+                    className="flex items-center gap-2 text-sm font-medium text-foreground"
+                  >
                     <User className="h-4 w-4 text-accent" />
                     Full Name *
                   </label>
@@ -91,7 +101,10 @@ export const EnquiryForm = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="phone" className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="phone"
+                    className="flex items-center gap-2 text-sm font-medium text-foreground"
+                  >
                     <Phone className="h-4 w-4 text-accent" />
                     Phone Number *
                   </label>
@@ -109,7 +122,10 @@ export const EnquiryForm = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <label
+                  htmlFor="email"
+                  className="flex items-center gap-2 text-sm font-medium text-foreground"
+                >
                   <Mail className="h-4 w-4 text-accent" />
                   Email Address *
                 </label>
@@ -124,23 +140,6 @@ export const EnquiryForm = () => {
                   className="h-12 border-border bg-background"
                 />
               </div>
-
-              <div className="space-y-2">
-                <label htmlFor="message" className="flex items-center gap-2 text-sm font-medium text-foreground">
-                  <MessageSquare className="h-4 w-4 text-accent" />
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Tell us about your requirements..."
-                  rows={5}
-                  className="border-border bg-background resize-none"
-                />
-              </div>
-
               <Button
                 type="submit"
                 disabled={isSubmitting}
@@ -150,7 +149,8 @@ export const EnquiryForm = () => {
               </Button>
 
               <p className="text-center text-sm text-muted-foreground">
-                By submitting this form, you agree to our privacy policy and terms of service.
+                By submitting this form, you agree to our privacy policy and
+                terms of service.
               </p>
             </form>
           </Card>
@@ -165,7 +165,9 @@ export const EnquiryForm = () => {
             <Card className="border-none bg-card p-6 text-center shadow-md">
               <Mail className="mx-auto mb-3 h-8 w-8 text-accent" />
               <h3 className="mb-2 font-semibold text-foreground">Email Us</h3>
-              <p className="text-sm text-muted-foreground">contact@elaris.consulting</p>
+              <p className="text-sm text-muted-foreground">
+                contact@elaris.consulting
+              </p>
             </Card>
             <Card className="border-none bg-card p-6 text-center shadow-md">
               <MessageSquare className="mx-auto mb-3 h-8 w-8 text-accent" />

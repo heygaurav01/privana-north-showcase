@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { submitFormData } from "@/lib/api";
 
 import { useNavigate } from "react-router-dom";
 
@@ -42,16 +43,41 @@ export const HeroForm = () => {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const { success, message } = await submitFormData({
+        name: formData.name,
+        phone: formData.mobile,
+        email: formData.email || "",
+        countryCode: "+91",
+        message: "Hero section registration",
+      });
+
+      if (!success) {
+        toast({
+          title: "Submission Failed",
+          description: message,
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       toast({
         title: "Registration Successful!",
         description: "We will contact you shortly with the best offers.",
       });
       setFormData({ name: "", mobile: "", email: "", consent: false });
-      setIsSubmitting(false);
       navigate("/thank-you.html");
-    }, 1000);
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "Please try again later or contact us directly.",
+        variant: "destructive",
+      });
+      console.error("Error submitting hero form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +118,10 @@ export const HeroForm = () => {
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="mobile" className="text-sm font-semibold text-gray-800">
+          <Label
+            htmlFor="mobile"
+            className="text-sm font-semibold text-gray-800"
+          >
             Mobile No *
           </Label>
           <Input
@@ -108,7 +137,10 @@ export const HeroForm = () => {
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="email" className="text-sm font-semibold text-gray-800">
+          <Label
+            htmlFor="email"
+            className="text-sm font-semibold text-gray-800"
+          >
             Email (Optional)
           </Label>
           <Input
@@ -127,7 +159,7 @@ export const HeroForm = () => {
             id="consent"
             checked={formData.consent}
             onCheckedChange={(checked) =>
-              setFormData(prev => ({ ...prev, consent: checked as boolean }))
+              setFormData((prev) => ({ ...prev, consent: checked as boolean }))
             }
             className="mt-1 border-gray-300 data-[state=checked]:bg-purple-700 data-[state=checked]:border-purple-700"
           />
@@ -135,7 +167,8 @@ export const HeroForm = () => {
             htmlFor="consent"
             className="text-xs text-gray-500 leading-tight cursor-pointer"
           >
-            I consent to the use of my provided data in accordance with the privacy policy.
+            I consent to the use of my provided data in accordance with the
+            privacy policy.
           </Label>
         </div>
 
@@ -144,12 +177,8 @@ export const HeroForm = () => {
           disabled={isSubmitting}
           className="w-full bg-[#1e3a8a] hover:bg-[#172554] text-white font-semibold h-11 text-base mt-2"
         >
-          {isSubmitting ? "Submitting..." : "Pre-Register Now"}
+          {isSubmitting ? "Submitting..." : "Register Now"}
         </Button>
-
-        <p className="text-center text-xs text-gray-400 mt-2">
-          Free Cab Facility For Site Visit
-        </p>
       </form>
     </Card>
   );
