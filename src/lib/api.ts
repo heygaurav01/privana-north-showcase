@@ -41,12 +41,12 @@ export const submitFormData = async (
       name: formData.name,
       phone: `${formData.countryCode}${formData.phone}`,
       email: formData.email,
-      promotion_code: "12UJ7BNBD_ms6g==",
+      promotion_code: "GDmryxHr44EfDA==",
       ip_address: userIP,
       ...(formData.message ? { message: formData.message } : {}),
     };
 
-    const response = await fetch("http://localhost:4000/api/request", {
+    const response = await fetch("http://api.elaris.ltd/api/request", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

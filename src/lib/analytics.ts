@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export const CLARITY_PROJECT_ID = "t40cuj405m"; // Replace with your actual Clarity project ID
+export const CLARITY_PROJECT_ID = "uemerhy1m3"; // Replace with your actual Clarity project ID
 
 // Initialize Microsoft Clarity
 export const initializeClarity = (projectId?: string) => {
