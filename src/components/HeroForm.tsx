@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { submitFormData } from "@/lib/api";
@@ -17,7 +17,7 @@ export const HeroForm = () => {
     name: "",
     mobile: "",
     email: "",
-    consent: false,
+
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -33,14 +33,7 @@ export const HeroForm = () => {
       return;
     }
 
-    if (!formData.consent) {
-      toast({
-        title: "Consent Required",
-        description: "Please agree to the privacy policy to proceed.",
-        variant: "destructive",
-      });
-      return;
-    }
+
 
     setIsSubmitting(true);
 
@@ -74,7 +67,7 @@ export const HeroForm = () => {
         title: "Registration Successful!",
         description: "We will contact you shortly with the best offers.",
       });
-      setFormData({ name: "", mobile: "", email: "", consent: false });
+      setFormData({ name: "", mobile: "", email: "" });
       navigate("/thank-you.html");
     } catch (error) {
       toast({
@@ -162,23 +155,7 @@ export const HeroForm = () => {
           />
         </div>
 
-        <div className="flex items-start space-x-2 pt-2">
-          <Checkbox
-            id="consent"
-            checked={formData.consent}
-            onCheckedChange={(checked) =>
-              setFormData((prev) => ({ ...prev, consent: checked as boolean }))
-            }
-            className="mt-1 border-gray-300 data-[state=checked]:bg-purple-700 data-[state=checked]:border-purple-700"
-          />
-          <Label
-            htmlFor="consent"
-            className="text-xs text-gray-500 leading-tight cursor-pointer"
-          >
-            I consent to the use of my provided data in accordance with the
-            privacy policy.
-          </Label>
-        </div>
+
 
         <Button
           type="submit"

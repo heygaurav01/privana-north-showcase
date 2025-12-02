@@ -91,7 +91,7 @@ export const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  href="#"
+                  href="/Disclaimer.html"
                   className="text-primary-foreground/80 transition-colors hover:text-accent"
                 >
                   Privacy Policy
@@ -102,7 +102,7 @@ export const Footer = () => {
                   href="#"
                   className="text-primary-foreground/80 transition-colors hover:text-accent"
                 >
-                  Terms & Conditions
+
                 </a>
               </li>
               <li>
@@ -110,12 +110,12 @@ export const Footer = () => {
                   href="#"
                   className="text-primary-foreground/80 transition-colors hover:text-accent"
                 >
-                  RERA Details
+
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/Disclaimer.html"
                   className="text-primary-foreground/80 transition-colors hover:text-accent"
                 >
                   Disclaimer
@@ -153,7 +153,7 @@ export const Footer = () => {
         <div className="mt-12 border-t border-primary-foreground/20 pt-8">
           <div className="flex flex-col items-center justify-between gap-4 text-sm text-primary-foreground/60 md:flex-row">
             <p>© 2024 DLF Privana North. All rights reserved.</p>
-            <p className="text-xs">RERA No: GGM/954/686/2025/57</p>
+            <p className="text-xs">PROJECT RERA No: RC/REP/HARERA/GGM/954/686/2025/57 https://haryanarera.gov.in/</p>
           </div>
         </div>
       </div>
