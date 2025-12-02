@@ -5,9 +5,11 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { submitFormData } from "@/lib/api";
 import { Mail, Phone, User, MessageSquare } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 export const EnquiryForm = () => {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -21,11 +23,18 @@ export const EnquiryForm = () => {
     setIsSubmitting(true);
 
     try {
+      const utmCampaign = searchParams.get("utm_campaign") || undefined;
+      const utmSource = searchParams.get("utm_source") || undefined;
+      const utmMedium = searchParams.get("utm_medium") || undefined;
+
       const { success, message } = await submitFormData({
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
         countryCode: formData.countryCode,
+        utmCampaign,
+        utmSource,
+        utmMedium,
       });
 
       if (success) {

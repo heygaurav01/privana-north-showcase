@@ -7,11 +7,12 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { submitFormData } from "@/lib/api";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export const HeroForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
     mobile: "",
@@ -44,12 +45,19 @@ export const HeroForm = () => {
     setIsSubmitting(true);
 
     try {
+      const utmCampaign = searchParams.get("utm_campaign") || undefined;
+      const utmSource = searchParams.get("utm_source") || undefined;
+      const utmMedium = searchParams.get("utm_medium") || undefined;
+
       const { success, message } = await submitFormData({
         name: formData.name,
         phone: formData.mobile,
         email: formData.email || "",
         countryCode: "+91",
         message: "Hero section registration",
+        utmCampaign,
+        utmSource,
+        utmMedium,
       });
 
       if (!success) {

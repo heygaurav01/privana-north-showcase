@@ -4,6 +4,9 @@ interface FormSubmissionData {
   email: string;
   countryCode: string;
   message?: string;
+  utmCampaign?: string;
+  utmSource?: string;
+  utmMedium?: string;
 }
 
 interface ApiSubmissionData {
@@ -13,6 +16,9 @@ interface ApiSubmissionData {
   promotion_code: string;
   ip_address: string;
   message?: string;
+  utm_campaign?: string;
+  utm_source?: string;
+  utm_medium?: string;
 }
 
 // Get user's IP address
@@ -44,6 +50,9 @@ export const submitFormData = async (
       promotion_code: "GDmryxHr44EfDA==",
       ip_address: userIP,
       ...(formData.message ? { message: formData.message } : {}),
+      ...(formData.utmCampaign ? { utm_campaign: formData.utmCampaign } : {}),
+      ...(formData.utmSource ? { utm_source: formData.utmSource } : {}),
+      ...(formData.utmMedium ? { utm_medium: formData.utmMedium } : {}),
     };
 
     const response = await fetch("http://api.elaris.ltd/api/request", {
